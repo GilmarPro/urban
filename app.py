@@ -6,7 +6,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+migrate = Migrate(app, db, render_as_batch=True)
 
 from models import *
 
@@ -16,5 +16,7 @@ app.add_url_rule('/', 'index', index)
 
 if __name__ == '__main__':
     from views import *
-    app.add_url_rule('/player/', view_func=PlayerAPI.as_view('player_api'))
+    app.add_url_rule('/players/', view_func=PlayerAPI.as_view('players_api'))
+    app.add_url_rule('/matches/', view_func=MatchAPI.as_view('matches_api'))
+    app.add_url_rule('/teams/', view_func=TeamAPI.as_view('matches_man_api'))
     app.run()

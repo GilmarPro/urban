@@ -22,6 +22,6 @@ CRUD (create, read, update, delete)
 * As a player I want to select a match and validate my participation
 
 
-## Advanced Fonctionalities
+## Advanced Functionalities
 * As an organisator I want to add a "waiting list" which is a group of 2 or 3 potential player if 
 * As a player I can join the waiting list if the match is full

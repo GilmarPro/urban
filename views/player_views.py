@@ -1,33 +1,40 @@
 from flask.views import MethodView
 from flask import make_response, request
-
-from models.Players import add_player, show_player, del_player, up_player
+from app import db
+from models.Players import Players
 
 class PlayerAPI(MethodView):
     def get(self):
         data = request.args.get('id', '')
+
         if data != '':
-            player = show_player(data)
-            return f'Player {player.name}'
+            player = Players.query.filter_by(id=data).first()
+            if player:
+                return f'Player {player.name}'
+            return 'No player found'
         
-        players = show_player()
-        return {player.id : player.name for player in players}
+        players = Players.query.all()
+        return {player.id : {'name': player.name, 'mail': player.mail} for player in players}
 
     def post(self):
-        data = request.form.get('name', '')
-        if data != '':
-            add_player(data)
-            print(data)
-            return f'Player {data} added'
+        name = request.form.get('name', '')
+        mail = request.form.get('mail', '')
+        if (name != '') and (mail != ''):
+            db.session.add(Players(name=name, mail=mail))
+            db.session.commit()
+            return f'Player {name} added'
 
-        return 'Name has to be set'
+        return 'Name and mail have to be set'
 
     def delete(self):
         data = request.args.get('id', '')
         player = None
 
-        if data != '':
-            player = del_player(data)
+        if data != '':  
+            player = Players.query.filter_by(id=data).first()
+            if player != None:
+                db.session.delete(player)
+                db.session.commit()
 
         if player != None:
             return f'Player {data} deleted'
@@ -37,8 +44,13 @@ class PlayerAPI(MethodView):
     def put(self):
         id = request.form.get('id', '')
         name = request.form.get('name', '')
-        if id != '' and name != '':
-            up_player(id, name)
+        mail = request.form.get('mail', '')
+        if (id != '') and (name != '') and (mail != ''):
+            player = Players.query.filter_by(id=id).first()
+            if player:
+                player.name = name
+                player.mail = mail
+                db.session.commit()
             return f'Player {id} modified'
 
         return 'Name and id should be informed'      
