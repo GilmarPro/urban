@@ -12,6 +12,10 @@ class TeamAPI(MethodView):
             player = Players.query.filter_by(id=player_id).first()
 
             team = Teams.query.filter_by(id=team_id).first()
+
+            if len(team.players) >= 5:
+                return 'The team is full'
+
             team.players.append(player)
 
             db.session.commit()

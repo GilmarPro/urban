@@ -7,6 +7,14 @@ r = requests.post('http://127.0.0.1:5000/players/', data={'name': 'Albino', 'mai
 print(r.text)
 r = requests.post('http://127.0.0.1:5000/players/', data={'name': 'Santos', 'mail': 'santos@gmail.com'})
 print(r.text)
+r = requests.post('http://127.0.0.1:5000/players/', data={'name': 'Ana', 'mail': 'ana@gmail.com'})
+print(r.text)
+r = requests.post('http://127.0.0.1:5000/players/', data={'name': 'Bia', 'mail': 'bia@gmail.com'})
+print(r.text)
+r = requests.post('http://127.0.0.1:5000/players/', data={'name': 'Melo', 'mail': 'melo@gmail.com'})
+print(r.text)
+r = requests.post('http://127.0.0.1:5000/players/', data={'name': 'Ian', 'mail': 'ian@gmail.com'})
+print(r.text)
 
 # Read all players
 r = requests.get('http://127.0.0.1:5000/players/')
