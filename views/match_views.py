@@ -1,8 +1,7 @@
 from flask.views import MethodView
-from flask import make_response, jsonify, request
+from flask import request
 from datetime import datetime
 from models.Teams import Teams
-from models.Players import Players
 from models.Matches import Matches
 from app import db
 
@@ -77,38 +76,3 @@ class MatchAPI(MethodView):
             db.session.commit()
 
             return f'match {id} modified'        
-
-class TeamAPI(MethodView):
-    def post(self):
-        player_id = request.form.get('player_id', '')
-        team_id = request.form.get('team_id', '')
-        if player_id != '' and team_id != '':
-            player = Players.query.filter_by(id=player_id).first()
-
-            team = Teams.query.filter_by(id=team_id).first()
-            team.players.append(player)
-
-            db.session.commit()
-            return 'OK'
-        
-        return 'Nao entrou no if'
-
-    def get(self):
-        team_id = request.args.get('team_id', '')
-
-        if team_id != '':
-            return {'Players': [p.toJSON() for p in Teams.query.filter_by(id=team_id).one().players]}
-
-    def delete(self):
-        player_id = request.form.get('player_id', '')
-        team_id = request.form.get('team_id', '')
-        if player_id != '' and team_id != '':
-            player = Players.query.filter_by(id=player_id).first()
-
-            team = Teams.query.filter_by(id=team_id).first()
-            team.players.remove(player)
-
-            db.session.commit()
-            return 'OK'
-        
-        return 'Nao entrou no if'
