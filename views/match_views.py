@@ -11,10 +11,10 @@ class MatchAPI(MethodView):
 
         if data != '':
             match = Matches.query.filter_by(id=data).first()
-            return {match.id : {'address': match.address, 'day': match.day.strftime('%d-%m-%Y'), 'hour': match.hour.strftime('%H:%M')}}
+            return {match.id : {'address': match.address, 'day': match.day.strftime('%d-%m-%Y'), 'hour': match.hour.strftime('%H:%M'), 'team_A': match.team_A_id, 'team_B': match.team_B_id}}
         
         matches = Matches.query.all()
-        return {match.id : {'address': match.address, 'day': match.day.strftime('%d-%m-%Y'), 'hour': match.hour.strftime('%H:%M')} for match in matches}
+        return {match.id : {'address': match.address, 'day': match.day.strftime('%d-%m-%Y'), 'hour': match.hour.strftime('%H:%M'), 'team_A': match.team_A_id, 'team_B': match.team_B_id} for match in matches}
 
     def post(self):
         address = request.form.get('address', '')
