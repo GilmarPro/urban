@@ -6,7 +6,7 @@ Organize a football match with two teams of 5 players each
 
 
 ## Data
-* Match : adress, day, hour
+* Match : addess, day, hour
 * Player : name, mail
 * Team : compose of 5 players
 
@@ -23,5 +23,5 @@ CRUD (create, read, update, delete)
 
 
 ## Advanced Fonctionalities
-* As an organisator I want to add a "waiting list" wich is a group of 2 or 3 potential player if 
+* As an organisator I want to add a "waiting list" which is a group of 2 or 3 potential player if 
 * As a player I can join the waiting list if the match is full
