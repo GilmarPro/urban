@@ -1,18 +1,13 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
+from models import db
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+db.init_app(app)
 
-db = SQLAlchemy(app)
-migrate = Migrate(app, db, render_as_batch=True)
-
-from models import *
-
-def index():
-    return '<h1> OK </h1>'
-app.add_url_rule('/', 'index', index)
+with app.app_context():
+    db.create_all()
 
 if __name__ == '__main__':
     from views import *

@@ -1,5 +1,5 @@
-from app import db
-from models.Teams import Teams
+from models import db
+
 
 class Matches(db.Model):
     __tablename__ = 'matches'

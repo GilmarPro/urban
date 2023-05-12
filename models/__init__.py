@@ -1,2 +1,4 @@
-from .Players import Players
-from .Matches import Matches
+from flask_sqlalchemy import SQLAlchemy
+
+
+db = SQLAlchemy()

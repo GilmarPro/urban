@@ -1,4 +1,5 @@
-from app import db
+from models import db
+
 
 teams_has_players = db.Table('teams_has_players', db.Model.metadata,
     db.Column('team_id', db.Integer, db.ForeignKey('teams.id'), primary_key=True),

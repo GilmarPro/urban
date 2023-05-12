@@ -1,4 +1,5 @@
-from app import db
+from models import db
+
 
 class Players(db.Model):
     __tablename__ = 'players'
